@@ -1,6 +1,10 @@
 # VIBE
 
-Windows desktop workspace for independent Codex and Antigravity CLI conversations.
+Windows desktop workspace for independent Codex and Antigravity CLI conversations, plus a workspace-aware OpenRouter coding agent.
+
+- OpenRouter terminal-style interface, workspace file browsing, file attachments and reviewed edits.
+- Workspace-specific agent rules with optional inheritance from global VIBE rules.
+- Input selection and bounded undo. In native CLI panels, regular dragging selects input only; Shift + drag and Ctrl+C copy previous output without modifying it.
 
 ## Download
 
