@@ -103,14 +103,14 @@ fn main() -> eframe::Result {
         },
         Box::new(move |cc| {
             desktop_ui::configure(&cc.egui_ctx);
-            let mut app = App::new(PathBuf::from("VibeCoding App"), true);
+            let mut app = App::new(PathBuf::from("sample-project"), true);
             app.demo = false;
             app.chatgpt_ready = true;
             app.antigravity_enabled = true;
-            app.account_label = "Szili".into();
+            app.account_label = "Demo user".into();
             // Synthetic sample data only; never fetched from an account.
             app.native_codex_account = Some(vibe::codex_account::AccountInfo {
-                email: Some("szili@example.test".into()),
+                email: Some("demo@example.test".into()),
                 plan_type: Some("plus".into()),
             });
             let now = std::time::SystemTime::now()
@@ -162,7 +162,7 @@ fn main() -> eframe::Result {
             app.layout = vibe::app::LayoutMode::Columns;
             let mut terminals = HashMap::new();
             for (index, panel) in app.panels.iter_mut().enumerate() {
-                panel.title = if index == 0 { "Sophie" } else { "Rose" }.into();
+                panel.title = if index == 0 { "Codex" } else { "Antigravity" }.into();
                 panel.provider = if index == 0 {
                     ProviderKind::Chatgpt
                 } else {
@@ -221,13 +221,13 @@ fn main() -> eframe::Result {
                 panel.terminal_saved = false;
                 panel.status = PanelStatus::Ready;
                 panel.messages = vec![
-                    Message {role:Role::System,content:"OFFLINE PREVIEW · szintetikus adatok, nincs modellhívás vagy fájlmódosítás.".into()},
-                    Message {role:Role::User,content:"Nézd át a projektet, és javítsd a gomb megjelenését.".into()},
+                    Message {role:Role::System,content:"OFFLINE PREVIEW · sample data; no model calls or file changes.".into()},
+                    Message {role:Role::User,content:"Review the project and improve the button label.".into()},
                     Message {role:Role::System,content:"OK list_directory\n[dir] src\n      Cargo.toml\n      README.md".into()},
                     Message {role:Role::System,content:"OK read_file\n1 | fn button_label() -> &'static str {\n2 |     \"Send\"\n3 | }".into()},
-                    Message {role:Role::Assistant,content:"Megtaláltam a gomb címkéjét a src/button.rs fájlban.\n\nA javaslat rövidebb feliratot használ; a módosítást jóváhagyás után menti az ügynök.\n\nParancsot vagy tesztet ebben az előnézetben nem futtattam.".into()},
+                    Message {role:Role::Assistant,content:"Found the button label in src/button.rs.\n\nThe proposed edit uses a shorter label. Approve the preview before the agent saves the change.\n\nNo commands or tests were run in this offline preview.".into()},
                 ];
-                panel.input = "Mutasd a következő módosítást…".into();
+                panel.input = "Show the next proposed change…".into();
                 if std::env::args().any(|arg| arg == "--edit-review") {
                     app.edit_reviews.insert(
                         panel.id,
